@@ -19,17 +19,21 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Jonathan Bonham
-email: jwillb00@proton.me
+title_separator: "-"
+subtitle: "CS Student @UAlberta"
 description: >- # this means to ignore newlines until "baseurl:"
-  My personal website.
+  A website for my various projects and exploits.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://jwillb.net" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  jwillb
+github_username: jwillb
 
 # Build settings
-theme: minima
+#remote_theme: pages-themes/minimal@v0.2.0
+remote_theme: "mmistakes/minimal-mistakes@4.27.0"
 plugins:
-  - jekyll-feed
+- jekyll-remote-theme # add this line to the plugins list if you already have one
+- jekyll-feed
+minimal_mistakes_skin: "neon" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Exclude from processing.
 # The following items will not be processed, by default.
