@@ -35,6 +35,15 @@ plugins:
 - jekyll-feed
 - jekyll-include-cache
 
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:name
+  experience:
+    output: true
+    permalink: /:collection/:name
+
+
 defaults:
   # _pages
   - scope:
@@ -53,5 +62,18 @@ defaults:
       read_time: true
       comments: false
       related: true
+  # _projects
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: single
+      read_time: true
+  # _experience
+  - scope:
+      path: ""
+      type: experience
+    values:
+      layout: single
 
-include: ["_pages", "_posts"]
+include: ["_pages", "_posts", "_projects", "_experience"]

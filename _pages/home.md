@@ -1,7 +1,7 @@
 ---
 permalink: /
 author: Jonathan Bonham
-layout: home
+layout: single
 ---
 
-Welcome to my website!
+Welcome to my website! This is where I post information about my projects and technical experience.
