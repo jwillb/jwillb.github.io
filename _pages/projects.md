@@ -5,6 +5,7 @@ permalink: /projects/
 collection: projects
 entries_layout: grid
 classes: wide
+author: Jonathan Bonham
 ---
 
 Here are some of my projects.

@@ -1,5 +1,8 @@
 Jonathan Bonham:
   name: "Jonathan Bonham"
-  uri: "https://jwillb.net"
-  bio: "I am a Computing Science student at the University of Alberta. My primary interests are embedded programming, robotics and DevOps."
+  bio: "I am a Computing Science student at the University of Alberta."
+  avatar: "assets/images/Jonathan.png"
+  links:
+    - label: "GitHub"
+      url: "https://github.com/jwillb"
 

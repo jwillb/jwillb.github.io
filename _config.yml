@@ -18,9 +18,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Jonathan Bonham
+title: Jonathan's Website
 title_separator: "-"
-subtitle: "CS Student @UAlberta"
+#subtitle: "CS St"
 description: >- # this means to ignore newlines until "baseurl:"
   A website for my various projects and exploits.
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -69,11 +69,15 @@ defaults:
     values:
       layout: single
       read_time: true
+      author_profile: true
+      author: Jonathan Bonham
   # _experience
   - scope:
       path: ""
       type: experience
     values:
       layout: single
+      author_profile: true
+      author: Jonathan Bonham
 
 include: ["_pages", "_posts", "_projects", "_experience"]
