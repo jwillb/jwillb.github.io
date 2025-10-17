@@ -15,7 +15,7 @@ I use Caddy to reverse proxy nearly all of my services to my domain, jwillb.net.
 ### Jellyfin
 This is probably the most well-used software on any of my servers. Jellyfin is a free and open source media server. What this allows somebody to do is provide a nice interface for browsing your media collection, which can be movies, TV shows, music, or even home videos. My family and I use this to watch Blu-Ray movies and TV that we find at thrift stores because it provides a convenient way to watch your media on any device that supports it, and you don't have to be tech-savvy. I deploy it using their official Docker container. Docker does make it slightly harder to set up hardware transcoding on Nvidia GPUs, but it's worth the hassle. I host this on my local server because media takes up storage and local streaming is a lot faster than streaming from a VPS.
 ### Vikunja
-Probably the most important service I am currently running. It's a to-do list/reminder app with tons of features that suits my needs and helps me remember that I have stuff to do.
+Easily the most important service I am currently running. It's a to-do list/reminder app with tons of features that suits my needs and helps me remember that I have stuff to do.
 ### Vaultwarden
 Vaultwarden is a server for the Bitwarden password manager rewritten in Rust. It is also a lot simpler to set up. It doesn't do much by itself, but it becomes an amazing password manager when combined with the Bitwarden apps/browser extensions.
 ### Joplin
