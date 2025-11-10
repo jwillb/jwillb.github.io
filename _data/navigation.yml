@@ -1,6 +1,3 @@
 main:
   - title: "Experience"
     url: /experience
-  - title: "Resume"
-    url: "https://docs.google.com/viewer?url=https://github.com/jwillb/resume/releases/latest/download/JBonham_Resume.pdf"
-    target: _blank
