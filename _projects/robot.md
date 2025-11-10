@@ -19,7 +19,10 @@ I decided on the MPU6050 IMU because it is widely used and cost-effective. I wen
 The answer: Motor encoders. These are simply a magnet that measures the amount of time another magnet passes by it. Doing this lets you figure out the RPM of the motor, which lets you determine how fast the robot is moving assuming you know the wheel circumference. When you know the time, and how fast the motor is spinning, you can determine the distance that the motor has spun. Using some math, the robot can then determine where it is. Unfortunately, this had another issue: I couldn't find a motor that was both 6 volts AND had a built-in encoder (I didn't want to use an external encoder because it would greatly increase the complexity of the wire). Luckily after some searching, I managed to find motors that fit my requirements from Canada Robotix. I then bought a dual motor driver to control the robots from the microcontroller via PWM.
 
 ## Using the Hardware
-After all of my parts arrived, I needed to learn how to use them with my microcontroller. I decided to start with the MPU6050, which communicates over a standard called I2C. This is a simple, 2-wire communication standard that is widely used and luckily has a supporting library in ESP-IDF. Referencing the ESP-IDF documentation and a tutorial from Shawn Hymel, I managed to read from the device. The basic steps needed to get connected are as follows:
+After all of my parts arrived, I needed to learn how to use them with my microcontroller. I decided to start with the MPU6050, which communicates over a standard called I2C.
+
+### Configuring I2C
+This is a simple, 2-wire communication standard that is widely used and luckily has a supporting library in ESP-IDF. Referencing the ESP-IDF documentation and a tutorial from Shawn Hymel, I managed to read from the device. The basic steps needed to get connected are as follows:
 
 1. Configure the I2C bus.
     - The last two variables in the struct are the glitch ignore count and internal pullups. The glitch ignore count is how many glitches in a sequence will be ignored before giving an error. 7 is often used for this.
@@ -69,7 +72,7 @@ After all of my parts arrived, I needed to learn how to use them with my microco
     i2c_master_transmit_receive(mpu6050_dev, &59, 1, rb, rb_size, -1);
     ```
 
-
+### Using PWM
 Now that I2C's been figured out, the other missing piece of the software puzzle is driving a motor. Though it's somewhat counterintuitive, motor control in ESP-IDF is done using the LED Control library, `ledc`. This library is the PWM control library, which is used to control LEDs (Makes sense, given the name) but is also used to control motors. The hard part of controlling motors is the wiring, as opposed to the code like it was for controlling I2C.
 
 Using the TB6612FNG motor driver, I connected my 6V power source (Either the fancy power supply in the [ARVP](/experience/arvp) club room, or a buck converter coming from a cannibalized 12V power adapter) to the `VM` pin. The `PWMA`, `PWMB`, `STBY`, `AIN1`, `AIN2`, `BIN1`, and `BIN2` pins were connected to various data pins on the ESP-32. `VCC` was connected to the 3.3V source on the ESP-32 (Same as the `VCC` on the MPU6050). I then connected `GND` to the ground rail of my 6V power supply. With all of my wiring in place, I wrote the code. The steps for motor control were similar to I2C, in that I first had to define a couple of structs for the settings and then I could use simple commands to control the peripheral.
@@ -106,3 +109,9 @@ The duty is what actually controls the speed of the motor, and is essentially th
 This was all correct in theory, but there was an issue: The motors weren't spinning! I double checked my code and everything was correct, so I realized it was a wiring issue, or worst case scenario, my motor wasn't working. 
 
 Luckily, the reason it wasn't spinning was only because I didn't have a common ground. My motors were on their own circuit and my other devices were on another. A common ground is crucial for getting things to work in their common projects, so I had to connect my power supply's ground rail to the ground on my ESP-32, and then my motor spun! Now that I have verified my hardware works and I know how to use it, I need to design a prototype chassis for my robot.
+
+## Designing the frame
+Since I don't know how to use CAD software, I will be using OpenSCAD to model my robot. Thankfully, the frame is very simple in the prototype stage. It is essentially just a platform for the breadboard and two short walls.
+
+Check back later for more updates.
+## ...
