@@ -113,5 +113,65 @@ Luckily, the reason it wasn't spinning was only because I didn't have a common g
 ## Designing the frame
 Since I don't know how to use CAD software, I will be using OpenSCAD to model my robot. Thankfully, the frame is very simple in the prototype stage. It is essentially just a platform for the breadboard and two short walls.
 
-Check back later for more updates.
+After a few iterations, I designed this:
+![Breadboard holder with motor cutouts for wheels](/assets/images/openscad_robot_chassis.png)
+While it isn't my best work, it'll get the job down for now.
+
+I also needed wheels, and for that I'm just using gears that I made I had to design these custom so they would have the proper amount of grip and would also have the proper D-shaped cutout for my motors:
+![Large gear-style wheel with a D-shaped cutout](/assets/images/robot_wheel_openscad.png)
+
+Now, let's talk about the code.
+
+## PID Control
+**PID** (Proportional, Integral, Derivate) is a very common and relatively simple control scheme used to maintain a set point in a system. In my case, the set point is a pitch angle of 0 degrees, and the control output is the rotation of the motors. If you want to learn more about PID, [PID Explained](https://pidexplained.com) is a very good resource for this. Essentially, you calculate the proportional, integral, and derivative, and the output is the three of those added together. Here is the code for my PID controller:
+``` c
+// The struct representing the controller
+typedef struct {
+    float kp, ki, kd, target, prev_error, p, i, d, i_sum;
+    TickType_t p_time;
+
+} pid_controller_t;
+```
+
+``` c
+// Functions for using the struct
+pid_controller_t pid_controller(float kp, float ki, float kd, float target)
+{
+    pid_controller_t pid = {
+        .kp = kp,
+        .ki = ki,
+        .kd = kd,
+        .target = target,
+        .prev_error = 0,
+        .p_time = xTaskGetTickCount(),
+        .i_sum = 0,
+    };
+    return pid;
+}
+
+float step(pid_controller_t pid, float reading)
+{
+    float error = 0 - reading;
+    TickType_t c_time = xTaskGetTickCount();
+    TickType_t delta = (c_time - pid.p_time) * ms_ratio;
+
+    pid.p_time = c_time;
+    pid.p = pid.kp * error;
+
+    pid.i_sum += error * delta;
+    pid.i = pid.i_sum * pid.ki;
+
+    pid.d = pid.kd * (error - pid.prev_error) * (1 / delta);
+    pid.prev_error = error;
+
+    return pid.p + pid.i + pid.d;
+}
+```
+Essentially, the `step` function updates the value of i\_sum while also computing the motor output. I made a generic PID struct and functions because I will be using a few different PID controllers in this project (One for balancing, one for rotation, one for velocity).
+
+While attempting to tune the PID (Adjusting kp, ki, and kd to balance effectively (This procedure is documented on the PID Explained website)), I realized that there is a minor oversight in my prototype. 
+
+A self-balancing robot is attempting to balance what is known as an inverted pendulum. My design for the robot chassis does not have a high center of mass so it can't balance like an inverted pendulum. In fact, it's so light the the wires connected to the buck converter and ESP-32 are actually throwing it off balance. I need to redesign the robot so that it has a position for a weight above its center.
+
+Check back soon for more updates.
 ## ...
