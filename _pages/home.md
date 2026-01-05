@@ -9,7 +9,7 @@ entries_layout: grid
 
 Welcome to my website! This is where I post information about my projects and technical experience.
 
-I am a 3rd year Computing Science Specialization student at the University of Alberta. My primary interests are embedded development, robotics (especially autonomous robotics), and DevOps. I am currently a Software Co-Lead for the [Autonomous Robotic Vehicle Project](/experience/arvp) club, and a [research assistant] in the Department of Radiology and Diagnostic Imaging.
+I am a 3rd year Computing Science Specialization student at the University of Alberta. My primary interests are embedded development, robotics (especially autonomous robotics), and DevOps. I am currently a Software Co-Lead for the [Autonomous Robotic Vehicle Project](/experience/arvp) club, and a research assistant in the Department of Radiology and Diagnostic Imaging.
 
 Outside of school, I enjoy hiking, camping, biking, and gardening.
 
